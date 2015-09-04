@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+
+"use strict"
+
+var input = process.argv[2];
+
+function funk2js(input) {
+  var new_input = input;
+
+  new_input = new_input.replace(/\s+/,''); /* removes any whitespace */
+  new_input = new_input.replace(/^\S+=/,''); /* removes the equal sing and anything before it */
+  new_input = new_input.replace(/\[|{/g, '('); /* replaces left brackets and braces with parenthesis */
+  new_input = new_input.replace(/\]|}/g, ')'); /* replaces right brackets and braces with parenthesis */
+  new_input = new_input.replace(/(\d)x/g, '$1*x'); /* places asterisks in between coefficients */
+  new_input = new_input.replace(/\)(x|\d)/g, ')*$1'); /* places asterisks in between left parenthesis and values */
+  new_input = new_input.replace(/(x|\d)\(/g, '$1*('); /* place asterisks inbetween right parenthesis and values */
+  new_input = new_input.replace(/xx/g, 'x*x'); /* places an asterisk inbetween variables */
+  new_input = new_input.replace(/xx/g, 'x*x'); /* recurses the previous replacement */
+  new_input = new_input.replace(/x(\d)/g, 'x*$1'); /* places an asterisk inbetween a variable and a number */
+  new_input = new_input.replace(/x(\d)/g, 'x*$1'); /* recurses the previous replacement */
+  new_input = new_input.replace(/(\d)x/g, '$1*x'); /* places an asterisk inbetween a variable and a coefficent*/
+  new_input = new_input.replace(/(\d)x/g, '$1*x'); /* recurses the previous replacement */
+  new_input = new_input.replace(/\)\(/g, ')*('); /* places asterisks inbetween parenthesis */ 
+  new_input = new_input.replace(/\(\)/g,'0') /* replaces '()' with 0 */
+  return new_input;
+}
+var test = input.match(/\^(\(.*?\))|\^./g)
+console.log(test)
+/*
+console.log('Input:');
+console.log(input);
+console.log('Output:');
+console.log(funk2js(input)); 
+*/

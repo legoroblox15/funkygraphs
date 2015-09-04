@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+equation = ''
+jspow = ''
+def parenMatcher(equation):
+    left = 0
+    right = 0
+    for letter in equation:
+        if letter == '^':
+            jspow += 'math.pow(' + last_letter + ','
+            inapower = True
+        if inapower = True:
+            
+        last_letter = letter
+

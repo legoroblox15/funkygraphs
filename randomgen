@@ -1,0 +1,111 @@
+#!/usr/bin/env python3
+
+import random
+equa = ['y=']
+def number(int_type, sign=None):
+    if sign == None:
+        sign = '+'
+    decimal = ['', '.25', '.333333333', '.5', '.666666666', '.75']
+    if int_type == 'int':
+        number = random.randint(0,50)
+        if sign == '-':
+            number = '-' + str(number) + random.choice(decimal)
+        elif sign == '+':
+            number = str(number) + random.choice(decimal)
+        elif sign == '+-':
+            number = random.choice(['','-']) + str(number) + random.choice(decimal)
+        if number == '-0':
+            number = '0'
+    elif int_type == 'coeff':
+        number = random.randint(0,10)
+        if sign == '-':
+            number = '-' + str(number) + random.choice(decimal)
+        elif sign == '+':
+            number = str(number) + random.choice(decimal)
+        elif sign == '+-':
+            number = random.choice(['', '-']) + str(number) + random.choice(decimal)
+        if number == '-0':
+            number = '0'
+    elif int_type == 'index':
+        number = str(random.randint(2,5))
+    return number
+
+def linear():
+    # y = mx + b
+    something = False
+    m = number('coeff','+-')
+    b = number('int','+-')
+    if m != '0':
+        something = True
+        equa.append(m + 'x')
+    if b != '0':
+        something = True
+        if '-' not in b:
+            equa.append('+')
+        equa.append(b)
+    if something == False:
+        equa.append('0')
+def quad():
+    # y = ax^i + bx + c
+    something = False
+    a = number('coeff','+-')
+    b = number('coeff','+-')
+    c = number('int','+-')
+    i = number('index')
+    if a != '0':
+        something = True
+        equa.append(a + 'x' + '^' + i)
+    if b != '0':
+        something = True
+        if '-' not in b:
+            equa.append('+')
+        equa.append(b + 'x')
+    if c != '0':
+        if '-' not in c:
+            equa.append('+')
+        equa.append(c)
+    if something == False:
+        equa.append('0')
+
+def exp():
+    # y = ab^x + c 
+    something = False
+    a = number('coeff', '+-')
+    b = number('coeff', '+')
+    c = number('int', '+-')
+    if b != '0' and a != '0':
+        something = True
+        equa.append(a + "*" + b + '^x')
+    if c != '0':
+        something = True
+        if '-' not in c:
+            equa.append('+')
+        equa.append(c)
+    if something == False:
+        equa.append('0')
+
+def rational():
+    # y = a / (x + b)
+    something = False
+    a = number('int', '+')
+    b = number('int','+-')
+    if a != 0:
+        something = True
+        equa.append(a + '/')
+        if b != '0':
+            equa.append('(x')
+            if '-' not in b:
+                equa.append('+')
+                equa.append(b + ')')
+        else:
+            equa.append('x')
+    if something == False:
+        equa.append('0')
+
+func = ['linear()','quad()','exp()','rational()']
+
+eval(random.choice(func))
+
+for letter in equa:
+    print(letter,end='')
+print()
