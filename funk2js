@@ -24,7 +24,7 @@ function funk2js(input) {
   new_input = new_input.replace(/\(\)/g,'0') /* replaces '()' with 0 */
   return new_input;
 }
-var test = input.match(/\^(\(.*?\))|\^./g)
+var test = input.match()
 console.log(test)
 /*
 console.log('Input:');
